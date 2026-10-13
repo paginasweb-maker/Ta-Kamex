@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Ta-Kamex Taquería — La Presidencial</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tipografía Contrastante: Serif orgánica (Fraunces), Sans contemporánea (Plus Jakarta Sans) y Mono para comandas (Space Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500;1,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Fraunces', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+          colors: {
+            /* [ANTI-IA]: Paleta Orgánica de Taquería Tradicional:
+               Erradicamos los gradientes neón (#0F172A / cian / púrpura) típicos de ChatGPT.
+               Usamos tonos orgánicos: arcilla cocida, maíz nixtamalizado, carbón de leña y papel de estraza. */
+            barro: {
+              DEFAULT: '#C13B22',
+              dark: '#932814',
+              soft: '#F4E9E2',
+            },
+            maiz: {
+              DEFAULT: '#DCA134',
+              light: '#F8E9C9',
+              tostado: '#9C6818',
+            },
+            carbon: {
+              DEFAULT: '#181513',
+              deep: '#0F0D0C',
+              light: '#2E2925',
+              muted: '#716962',
+            },
+            pergamino: {
+              DEFAULT: '#F7F3EB',
+              card: '#FFFFFF',
+              darker: '#EDE7DC',
+            },
+            agave: {
+              DEFAULT: '#2F4F38',
+              soft: '#E5EFE7',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* [ANTI-IA]: Ruido y textura de papel de comanda para matar el aspecto liso y sintético */
+    body {
+      background-color: #F7F3EB;
+      color: #181513;
+      background-image: radial-gradient(#E2DAD0 0.8px, transparent 0.8px);
+      background-size: 20px 20px;
+    }
+
+    /* [ANTI-IA]: Regla 4: Micro-Fricción con Bézier No-Lineal (curva con inercia física) */
+    .bento-card {
+      transition: transform 0.45s cubic-bezier(0.25, 1, 0.35, 1), box-shadow 0.45s cubic-bezier(0.25, 1, 0.35, 1);
+    }
+    .bento-card:hover {
+      transform: translateY(-4px) rotate(0.4deg);
+      box-shadow: 0 16px 32px -8px rgba(24, 21, 19, 0.12);
+    }
+
+    /* [ANTI-IA]: Sello de aprobación analógico con ligera rotación imperfecta */
+    .stamp-badge {
+      transform: rotate(-3.5deg);
+      box-shadow: 3px 3px 0px #181513;
+    }
+
+    /* [ANTI-IA]: Regla 1: Bento Grid Asimétrico en 12 columnas con alturas variables y descalces */
+    .asymmetric-bento {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 1024px) {
+      .asymmetric-bento {
+        grid-template-columns: 1.35fr 0.95fr 1.15fr;
+      }
+    }
+
+    /* [ANTI-IA]: Superposición (Overlap) vertical para romper la cuadrícula matemática rígida */
+    .hero-overlap-image {
+      margin-top: -2.5rem;
+      margin-left: 1rem;
+    }
+
+    /* Detalle de ticket fiscal/comanda */
+    .ticket-edge {
+      background: radial-gradient(circle, transparent, transparent 4px, #ffffff 4px, #ffffff);
+      background-size: 14px 10px;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-barro selection:text-white pb-32 md:pb-12">
+
+  <!-- ================= BANNER ORGÁNICO DE APERTURA ================= -->
+  <div class="bg-carbon text-pergamino border-b border-carbon-light py-2 px-4 text-xs font-mono tracking-tight">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-agave animate-pulse"></span>
+        <span class="font-bold text-maiz">COMEDOR ABIERTO:</span>
+        <span>Lun a Dom desde las 17:00 en La Presidencial</span>
+      </div>
+      <div class="flex items-center gap-4 text-[11px] text-pergamino-darker">
+        <span>📍 Consumo en el lugar</span>
+        <span>•</span>
+        <span>🛍️ Retiros en puerta</span>
+        <span>•</span>
+        <span>🛵 Delivery directo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= NAVEGACIÓN ASIMÉTRICA ================= -->
+  <header class="sticky top-0 z-40 bg-pergamino/90 backdrop-blur-md border-b-2 border-carbon">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo Tipográfico: Serif Expresiva + Monospace -->
+      <a href="#" class="flex items-baseline gap-3 group">
+        <div class="bg-barro text-white p-2 rounded-lg font-serif font-black text-2xl leading-none shadow-[2px_2px_0px_#181513] group-hover:rotate-6 transition-transform">
+          🌮
+        </div>
+        <div>
+          <span class="font-serif text-2xl sm:text-3xl font-extrabold text-carbon tracking-tight block leading-none">
+            El Ta-Kamex
+          </span>
+          <span class="font-mono text-[10px] tracking-widest text-barro font-bold uppercase">
+            Taquería · La Presidencial
+          </span>
+        </div>
+      </a>
+
+      <!-- Navegación con carácter editorial -->
+      <nav class="hidden md:flex items-center gap-7 font-mono text-xs uppercase tracking-wider text-carbon-light font-bold">
+        <a href="#carta" class="hover:text-barro transition-colors underline-offset-8 hover:underline">01. La Carta</a>
+        <a href="#opiniones" class="hover:text-barro transition-colors underline-offset-8 hover:underline">02. 4.8★ Reseñas</a>
+        <a href="#contacto" class="hover:text-barro transition-colors underline-offset-8 hover:underline">03. Dónde Estamos</a>
+      </nav>
+
+      <!-- Botón de Contacto directo a WhatsApp -->
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/593999999999?text=Hola%20El%20Ta-Kamex%2C%20quisiera%20contactarme%20con%20ustedes" target="_blank" class="bg-agave hover:bg-agave/90 text-white font-mono text-xs font-bold py-2.5 px-4 rounded-xl border-2 border-carbon shadow-[3px_3px_0px_#181513] active:translate-x-0.5 active:translate-y-0.5 transition flex items-center gap-2">
+          <i class="fa-brands fa-whatsapp text-base"></i>
+          <span>WHATSAPP</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= HERO ASIMÉTRICO (BENTO LEAD) ================= -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+    
+    <!-- [ANTI-IA]: Grid Asimétrico en Proporción 7fr a 5fr con elementos desalineados intencionalmente -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Columna Principal (7 columnas): Título editorial de gran peso -->
+      <div class="lg:col-span-7 space-y-6 pt-4">
+        
+        <!-- Sello Analógico de Google Maps (Regla 2: Superposición e imperfección) -->
+        <div class="inline-flex items-center gap-3 bg-maiz-light border-2 border-carbon px-4 py-2 rounded-xl stamp-badge">
+          <div class="flex text-maiz-tostado text-xs">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <span class="font-mono text-xs font-bold text-carbon">4.8 ESTRELLAS</span>
+          <span class="font-mono text-[11px] text-carbon-muted">/ 710+ Opiniones en Google</span>
+        </div>
+
+        <h1 class="font-serif text-4xl sm:text-6xl lg:text-[4.2rem] font-bold text-carbon leading-[0.98] tracking-tight">
+          Tacos al pastor <br>
+          <span class="italic font-normal text-barro underline decoration-maiz decoration-wavy decoration-2">recién bajados</span> <br>
+          del trompo.
+        </h1>
+
+        <p class="text-carbon-light text-base sm:text-lg max-w-xl font-normal leading-relaxed">
+          Ni comida rápida congelada, ni recetas de franquicia. Carne marinada 24 horas, piña al carbón, tortillas calientes en comal y salsas tatemadas al momento en La Presidencial.
+        </p>
+
+        <!-- Bloque de Acción: Botones con estilo analógico rústico -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-3">
+          <a href="#carta" class="inline-flex items-center justify-center gap-3 bg-barro hover:bg-barro-dark text-white font-mono text-sm font-bold px-7 py-4 rounded-xl border-2 border-carbon shadow-[4px_4px_0px_#181513] hover:shadow-[2px_2px_0px_#181513] hover:translate-x-0.5 hover:translate-y-0.5 transition">
+            <i class="fa-solid fa-utensils"></i>
+            <span>EXPLORAR LA CARTA</span>
+          </a>
+
+          <a href="https://wa.me/593999999999?text=Hola%20El%20Ta-Kamex%2C%20quisiera%20contactarme%20con%20ustedes" target="_blank" class="inline-flex items-center justify-center gap-3 bg-agave hover:bg-agave/90 text-white font-mono text-sm font-bold px-6 py-4 rounded-xl border-2 border-carbon shadow-[4px_4px_0px_#181513] hover:shadow-[2px_2px_0px_#181513] transition">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>CONTACTAR POR WHATSAPP</span>
+          </a>
+        </div>
+
+
+      </div>
+
+      <!-- Columna Visual Secundaria (5 columnas): Superposición intencional y tarjetas en ángulo -->
+      <div class="lg:col-span-5 relative mt-8 lg:mt-0">
+        
+        <!-- Tarjeta Bento Principal: Foto protagonista con borde rústico y etiqueta física -->
+        <div class="relative bg-white border-2 border-carbon rounded-3xl p-3 shadow-[8px_8px_0px_#181513]">
+          
+          <div class="relative h-96 rounded-2xl overflow-hidden bg-carbon">
+            <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?q=80&w=800&auto=format&fit=crop" alt="Tacos al Pastor El Ta-Kamex" class="w-full h-full object-cover">
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-carbon via-transparent to-transparent opacity-80"></div>
+            
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="bg-barro text-white font-mono text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-2 inline-block">
+                Especialidad Insignia
+              </span>
+              <h3 class="font-serif text-2xl font-bold leading-tight">Tacos al Pastor con Piña Asada</h3>
+              <p class="font-mono text-xs text-maiz-light mt-1">$6.00 / Orden con 3 piezas</p>
+            </div>
+          </div>
+
+          <!-- [ANTI-IA]: Regla 2: Overlap - Nota manuscrita / Sticker pegado que rompe el marco -->
+          <div class="absolute -top-5 -right-4 bg-maiz text-carbon font-mono text-xs font-bold px-4 py-2 border-2 border-carbon rounded-xl shadow-[3px_3px_0px_#181513] rotate-6">
+            🌶️ SALSAS DE LA CASA
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ================= BENTO GRID DE LA CARTA (ASIMÉTRICO) ================= -->
+  <section id="carta" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t-2 border-carbon">
+    
+    <!-- Encabezado Editorial -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <span class="font-mono text-xs font-bold text-barro uppercase tracking-widest block mb-1">
+          // 01. PLATILLOS Y ESPECIALIDADES
+        </span>
+        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-carbon">
+          La Carta de Fogones
+        </h2>
+        <p class="font-sans text-carbon-muted text-sm max-w-lg mt-2">
+          Platillos preparados al momento en comales y fogones con recetas tradicionales. Precios en dólares con impuestos incluidos.
+        </p>
+      </div>
+
+      <!-- Filtros tipográficos -->
+      <div class="flex flex-wrap gap-2 font-mono text-xs">
+        <button onclick="filterCategory('all')" class="cat-pill active bg-carbon text-pergamino px-3.5 py-2 rounded-lg border-2 border-carbon font-bold" data-cat="all">Todos</button>
+        <button onclick="filterCategory('tacos')" class="cat-pill bg-white text-carbon hover:bg-pergamino-darker px-3.5 py-2 rounded-lg border-2 border-carbon font-bold" data-cat="tacos">Tacos</button>
+        <button onclick="filterCategory('especiales')" class="cat-pill bg-white text-carbon hover:bg-pergamino-darker px-3.5 py-2 rounded-lg border-2 border-carbon font-bold" data-cat="especiales">Quesadillas & Gringas</button>
+        <button onclick="filterCategory('combos')" class="cat-pill bg-white text-carbon hover:bg-pergamino-darker px-3.5 py-2 rounded-lg border-2 border-carbon font-bold" data-cat="combos">Combos</button>
+        <button onclick="filterCategory('bebidas')" class="cat-pill bg-white text-carbon hover:bg-pergamino-darker px-3.5 py-2 rounded-lg border-2 border-carbon font-bold" data-cat="bebidas">Bebidas</button>
+      </div>
+    </div>
+
+    <!-- [ANTI-IA]: Regla 1: Asymmetrical Bento Grid con fracciones no estándar y tamaños variables -->
+    <div class="asymmetric-bento">
+      
+      <!-- ITEM 1 (Destacado Grande: Tacos al Pastor) -->
+      <div class="menu-item bento-card bg-white border-2 border-carbon rounded-3xl p-5 shadow-[4px_4px_0px_#181513] flex flex-col justify-between" data-category="tacos">
+        <div>
+          <div class="h-56 rounded-2xl overflow-hidden mb-4 relative bg-carbon">
+            <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?q=80&w=600&auto=format&fit=crop" alt="Tacos al Pastor" class="w-full h-full object-cover">
+            <span class="absolute top-3 left-3 bg-barro text-white font-mono text-[10px] font-bold px-2 py-1 rounded border border-carbon shadow-sm uppercase">
+              El Más Pedido
+            </span>
+          </div>
+          <div class="flex justify-between items-baseline mb-2">
+            <h3 class="font-serif text-xl font-bold text-carbon">Tacos al Pastor (x3)</h3>
+            <span class="font-mono text-lg font-bold text-barro">$6.00</span>
+          </div>
+          <p class="text-carbon-muted text-xs leading-relaxed">
+            Láminas de cerdo adobadas al trompo con axiote y especias tradicionales, coronadas con cilantro picado, cebollita fresca y piña asada al fuego.
+          </p>
+        </div>
+        <div class="pt-4 mt-4 border-t border-carbon/10 flex items-center justify-between text-carbon-muted font-mono text-[11px]">
+          <span>Orden de 3 tacos</span>
+          <span class="text-barro font-bold">● Receta de la casa</span>
+        </div>
+      </div>
+
+      <!-- ITEM 2 (Especial: Quesabirria con Consomé) -->
+      <div class="menu-item bento-card bg-white border-2 border-carbon rounded-3xl p-5 shadow-[4px_4px_0px_#181513] flex flex-col justify-between" data-category="tacos">
+        <div>
+          <div class="h-56 rounded-2xl overflow-hidden mb-4 relative bg-carbon">
+            <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop" alt="Quesabirria" class="w-full h-full object-cover">
+            <span class="absolute top-3 left-3 bg-maiz text-carbon font-mono text-[10px] font-bold px-2 py-1 rounded border border-carbon uppercase">
+              Incluye Consomé
+            </span>
+          </div>
+          <div class="flex justify-between items-baseline mb-2">
+            <h3 class="font-serif text-xl font-bold text-carbon">Quesabirrias con Consomé</h3>
+            <span class="font-mono text-lg font-bold text-barro">$7.50</span>
+          </div>
+          <p class="text-carbon-muted text-xs leading-relaxed">
+            Res cocinada a fuego lento por 8 horas, tortilla dorada en la grasa del caldo con abundante queso derretido. Acompañada de su taza de caldo hirviendo para sumergir.
+          </p>
+        </div>
+        <div class="pt-4 mt-4 border-t border-carbon/10 flex items-center justify-between text-carbon-muted font-mono text-[11px]">
+          <span>Incluye consomé caliente</span>
+          <span class="text-maiz-tostado font-bold">● Cocción 8 hrs</span>
+        </div>
+      </div>
+
+      <!-- ITEM 3 (Gringa Gigante) -->
+      <div class="menu-item bento-card bg-white border-2 border-carbon rounded-3xl p-5 shadow-[4px_4px_0px_#181513] flex flex-col justify-between" data-category="especiales">
+        <div>
+          <div class="h-56 rounded-2xl overflow-hidden mb-4 relative bg-carbon">
+            <img src="https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?q=80&w=600&auto=format&fit=crop" alt="Gringa" class="w-full h-full object-cover">
+          </div>
+          <div class="flex justify-between items-baseline mb-2">
+            <h3 class="font-serif text-xl font-bold text-carbon">Gringa Suprema en Harina</h3>
+            <span class="font-mono text-lg font-bold text-barro">$5.50</span>
+          </div>
+          <p class="text-carbon-muted text-xs leading-relaxed">
+            Tortillas de harina de trigo tostadas en la plancha con costra de queso Oaxaca, abundante pastor y salsa verde de aguacate sin rebajar.
+          </p>
+        </div>
+        <div class="pt-4 mt-4 border-t border-carbon/10 flex items-center justify-between text-carbon-muted font-mono text-[11px]">
+          <span>Tortilla de harina gigante</span>
+          <span class="text-barro font-bold">● Queso Oaxaca</span>
+        </div>
+      </div>
+
+      <!-- ITEM 4 (Combo Grande La Presidencial) -->
+      <div class="menu-item bento-card bg-maiz-light/50 border-2 border-carbon rounded-3xl p-5 shadow-[4px_4px_0px_#181513] flex flex-col justify-between" data-category="combos">
+        <div>
+          <div class="h-44 rounded-2xl overflow-hidden mb-4 relative bg-carbon">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop" alt="Combo Familiar" class="w-full h-full object-cover">
+            <span class="absolute top-3 left-3 bg-carbon text-pergamino font-mono text-[10px] font-bold px-2 py-1 rounded">
+              Ahorro Grupal
+            </span>
+          </div>
+          <div class="flex justify-between items-baseline mb-2">
+            <h3 class="font-serif text-xl font-bold text-carbon">Combo 'La Presidencial'</h3>
+            <span class="font-mono text-lg font-bold text-barro">$14.50</span>
+          </div>
+          <p class="text-carbon-muted text-xs leading-relaxed">
+            6 tacos surtidos (pastor y asada) + 1 quesadilla grande en harina + porción de totopos con guacamole artesanal + 2 aguas frescas a elección.
+          </p>
+        </div>
+        <div class="pt-4 mt-4 border-t border-carbon/10 flex items-center justify-between text-carbon-muted font-mono text-[11px]">
+          <span>Para 2 a 3 personas</span>
+          <span class="text-agave font-bold">● Ahorro grupal</span>
+        </div>
+      </div>
+
+      <!-- ITEM 5 (Tacos de Asada al Carbón) -->
+      <div class="menu-item bento-card bg-white border-2 border-carbon rounded-3xl p-5 shadow-[4px_4px_0px_#181513] flex flex-col justify-between" data-category="tacos">
+        <div>
+          <div class="h-44 rounded-2xl overflow-hidden mb-4 relative bg-carbon">
+            <img src="https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?q=80&w=600&auto=format&fit=crop" alt="Tacos Asada" class="w-full h-full object-cover">
+          </div>
+          <div class="flex justify-between items-baseline mb-2">
+            <h3 class="font-serif text-xl font-bold text-carbon">Tacos de Asada (x3)</h3>
+            <span class="font-mono text-lg font-bold text-barro">$6.50</span>
+          </div>
+          <p class="text-carbon-muted text-xs leading-relaxed">
+            Corte de res jugoso sellado a fuego alto, cebollas cambray tatemadas y frijoles de la olla como guarnición.
+          </p>
+        </div>
+        <div class="pt-4 mt-4 border-t border-carbon/10 flex items-center justify-between text-carbon-muted font-mono text-[11px]">
+          <span>Corte de res jugoso</span>
+          <span class="text-carbon font-bold">● Con cebollitas</span>
+        </div>
+      </div>
+
+      <!-- ITEM 6 (Aguas Frescas Artesanales) -->
+      <div class="menu-item bento-card bg-white border-2 border-carbon rounded-3xl p-5 shadow-[4px_4px_0px_#181513] flex flex-col justify-between" data-category="bebidas">
+        <div>
+          <div class="h-44 rounded-2xl overflow-hidden mb-4 relative bg-carbon">
+            <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600&auto=format&fit=crop" alt="Aguas frescas" class="w-full h-full object-cover">
+          </div>
+          <div class="flex justify-between items-baseline mb-2">
+            <h3 class="font-serif text-xl font-bold text-carbon">Agua de Horchata o Jamaica</h3>
+            <span class="font-mono text-lg font-bold text-barro">$2.00</span>
+          </div>
+          <p class="text-carbon-muted text-xs leading-relaxed">
+            500ml de infusión fría de flor de jamaica pura o arroz con canela tostada. Cero jarabes artificiales.
+          </p>
+        </div>
+        <div class="pt-4 mt-4 border-t border-carbon/10 flex items-center justify-between text-carbon-muted font-mono text-[11px]">
+          <span>Vaso de 500ml frío</span>
+          <span class="text-barro font-bold">● 100% Natural</span>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ================= RESEÑAS REALES DE GOOGLE MAPS (ESTILO BITÁCORA) ================= -->
+  <section id="opiniones" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t-2 border-carbon">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-10">
+      <div class="lg:col-span-8">
+        <span class="font-mono text-xs font-bold text-barro uppercase tracking-widest block mb-1">
+          // 03. CALIFICACIONES AUDITADAS
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-carbon">
+          Lo que dice la gente que viene a cenar
+        </h2>
+      </div>
+      <div class="lg:col-span-4 lg:text-right">
+        <div class="inline-block bg-white border-2 border-carbon rounded-2xl p-4 shadow-[4px_4px_0px_#181513] text-left">
+          <div class="flex items-center gap-2">
+            <span class="font-serif text-3xl font-black text-carbon">4.8</span>
+            <div class="text-maiz-tostado text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+          </div>
+          <span class="font-mono text-[11px] text-carbon-muted">Basado en 710 valoraciones de comensales reales</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de Reseñas Asimétricas -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="bg-white border-2 border-carbon rounded-2xl p-5 shadow-[4px_4px_0px_#181513] rotate-[-1deg]">
+        <p class="font-serif text-sm italic text-carbon leading-relaxed mb-4">
+          "La carne al pastor está dorada pero jugosa, nada seca como en otros sitios. La salsa verde con aguacate es adictiva y atienden súper rápido aunque el local esté lleno."
+        </p>
+        <div class="font-mono text-xs border-t border-carbon/10 pt-3 flex justify-between items-center">
+          <strong class="text-carbon">Carlos R.</strong>
+          <span class="text-carbon-muted text-[10px]">Google Local Guide</span>
+        </div>
+      </div>
+
+      <div class="bg-maiz-light/60 border-2 border-carbon rounded-2xl p-5 shadow-[4px_4px_0px_#181513] rotate-[1.5deg]">
+        <p class="font-serif text-sm italic text-carbon leading-relaxed mb-4">
+          "Pedí a domicilio un viernes a las 9pm y llegó en menos de 25 minutos. Empacado con cuidado, nada revuelto ni frío. Las quesabirrias valen cada centavo."
+        </p>
+        <div class="font-mono text-xs border-t border-carbon/10 pt-3 flex justify-between items-center">
+          <strong class="text-carbon">Valentina M.</strong>
+          <span class="text-carbon-muted text-[10px]">Cliente Verificada</span>
+        </div>
+      </div>
+
+      <div class="bg-white border-2 border-carbon rounded-2xl p-5 shadow-[4px_4px_0px_#181513] rotate-[-0.8deg]">
+        <p class="font-serif text-sm italic text-carbon leading-relaxed mb-4">
+          "Buen ambiente familiar, mesas limpias y precios muy justos entre $5 y $10. El combo Presidencial alcanza de sobra para dos personas con buen apetito."
+        </p>
+        <div class="font-mono text-xs border-t border-carbon/10 pt-3 flex justify-between items-center">
+          <strong class="text-carbon">Javier P.</strong>
+          <span class="text-carbon-muted text-[10px]">Reseña de Maps</span>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ================= UBICACIÓN Y HORARIOS ================= -->
+  <section id="contacto" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t-2 border-carbon">
+    <div class="bg-carbon text-pergamino rounded-3xl p-8 sm:p-12 border-2 border-carbon shadow-[8px_8px_0px_#C13B22]">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <span class="font-mono text-xs font-bold text-maiz uppercase tracking-widest block mb-2">
+            // 04. COORDENADAS DEL LOCAL
+          </span>
+          <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white leading-tight">
+            Ven a vernos o pide directo a tu casa
+          </h2>
+          <p class="font-sans text-pergamino-darker text-sm mt-3 max-w-md">
+            Estamos ubicados en La Presidencial. Contamos con mesas familiares, despacho express para retiros en puerta y entregas motorizadas.
+          </p>
+
+          <div class="mt-8 space-y-4 font-mono text-xs">
+            <div class="flex items-start gap-3 bg-carbon-light p-3.5 rounded-xl border border-carbon">
+              <i class="fa-solid fa-map-pin text-barro text-base mt-0.5"></i>
+              <div>
+                <strong class="text-white block">DIRECCIÓN:</strong>
+                <span>Sector La Presidencial (Ecuador)</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 bg-carbon-light p-3.5 rounded-xl border border-carbon">
+              <i class="fa-solid fa-clock text-maiz text-base mt-0.5"></i>
+              <div>
+                <strong class="text-white block">HORARIOS:</strong>
+                <span>Lunes a Domingo: 17:00 a 23:30</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="https://maps.google.com" target="_blank" class="bg-barro hover:bg-barro-dark text-white font-mono text-xs font-bold px-5 py-3 rounded-xl border border-carbon flex items-center gap-2">
+              <i class="fa-solid fa-diamond-turn-right"></i>
+              <span>CÓMO LLEGAR (MAPS)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tarjeta de mapa estilizada sin iframe pesado -->
+        <div class="bg-pergamino text-carbon p-6 rounded-2xl border-2 border-carbon shadow-[6px_6px_0px_#DCA134] rotate-1">
+          <div class="flex items-center justify-between pb-3 border-b-2 border-carbon mb-4 font-mono text-xs">
+            <span class="font-bold">FICHA DE NEGOCIO</span>
+            <span class="bg-agave text-white px-2 py-0.5 rounded text-[10px] font-bold">VERIFICADO</span>
+          </div>
+
+          <div class="space-y-3 font-serif">
+            <h3 class="text-2xl font-bold">El Ta-Kamex Taquería — La Presidencial</h3>
+            <p class="font-sans text-xs text-carbon-muted">
+              Puntaje: 4.8 / 5.0 basado en más de 710 comensales. Rango de consumo promedio: $5 a $10 USD.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t-2 border-carbon font-mono text-xs flex justify-between items-center">
+            <span class="text-barro font-bold">SITIO OFICIAL</span>
+            <span>Hecho para el sabor local</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= BOTÓN FLOTANTE DE CONTACTO WHATSAPP ================= -->
+  <a href="https://wa.me/593999999999?text=Hola%20El%20Ta-Kamex%2C%20quisiera%20contactarme%20con%20ustedes" target="_blank" class="fixed bottom-6 right-6 z-50 bg-agave hover:bg-agave/90 text-white font-mono text-xs font-bold px-4 py-3 rounded-2xl border-2 border-carbon shadow-[4px_4px_0px_#181513] hover:shadow-[2px_2px_0px_#181513] hover:translate-x-0.5 hover:translate-y-0.5 transition flex items-center gap-2.5">
+    <i class="fa-brands fa-whatsapp text-xl"></i>
+    <span class="hidden sm:inline">CONTACTAR WHATSAPP</span>
+    <span class="sm:hidden">WHATSAPP</span>
+  </a>
+
+  <!-- ================= LÓGICA JAVASCRIPT ================= -->
+  <script>
+    function filterCategory(category) {
+      const pills = document.querySelectorAll('.cat-pill');
+      pills.forEach(pill => {
+        if(pill.dataset.cat === category) {
+          pill.classList.add('bg-carbon', 'text-pergamino');
+          pill.classList.remove('bg-white', 'text-carbon');
+        } else {
+          pill.classList.remove('bg-carbon', 'text-pergamino');
+          pill.classList.add('bg-white', 'text-carbon');
+        }
+      });
+
+      const items = document.querySelectorAll('.menu-item');
+      items.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
